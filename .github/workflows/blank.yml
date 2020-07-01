@@ -6,10 +6,23 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - run: npm init --scope @${{ github.repository_owner }} -y
-      - run: npm version 1.0.0-g${{ github.sha }}
-      - run: echo '//npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}' > .npmrc
-      - run: npm publish --registry=https://npm.pkg.github.com
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: create package.json
+      env:
+        NAME: "${{ github.repository }}-test"
+        VERSION: "1.0.0-g${{ github.sha }}"
+        REPOSITORY: "https://github.com/{{ github.repository }}"
+      run: |        
+        cp <<- EOF
+        {
+          "name": "$NAME",
+          "version": "$VERSION",
+          "repository": "$REPOSITORY"
+        }
+        EOF package.json 
+    - run: npm init --scope @${{ github.repository_owner }} -y
+    - run: npm version 1.0.0-g${{ github.sha }}
+    - run: echo '//npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}' > .npmrc
+    - run: npm publish --registry=https://npm.pkg.github.com
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
