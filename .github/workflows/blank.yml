@@ -18,7 +18,8 @@ jobs:
           "version": "$VERSION",
           "repository": "$REPOSITORY"
         }
-        EOF package.json 
+        EOF
+        package.json 
     - run: npm init --scope @${{ github.repository_owner }} -y
     - run: npm version 1.0.0-g${{ github.sha }}
     - run: echo '//npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}' > .npmrc
