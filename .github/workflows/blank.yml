@@ -14,9 +14,7 @@ jobs:
           "version": "1.0.0-g${{ github.sha }}",
           "repository": "https://github.com/{{ github.repository }}"
         }
-        EOF        
-    - run: npm init --scope @${{ github.repository_owner }} -y
-    - run: npm version 1.0.0-g${{ github.sha }}
+        EOF
     - run: echo '//npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}' > .npmrc
     - run: npm publish --registry=https://npm.pkg.github.com
       env:
