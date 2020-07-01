@@ -7,19 +7,14 @@ jobs:
 
     steps:
     - name: create package.json
-      env:
-        NAME: "${{ github.repository }}-test"
-        VERSION: "1.0.0-g${{ github.sha }}"
-        REPOSITORY: "https://github.com/{{ github.repository }}"
-      run: |        
-        cp <<- EOF
+      run: |
+        cat <<- EOF > package.json
         {
-          "name": "$NAME",
-          "version": "$VERSION",
-          "repository": "$REPOSITORY"
+          "name": "${{ github.repository }}-test",
+          "version": "1.0.0-g${{ github.sha }}",
+          "repository": "https://github.com/{{ github.repository }}"
         }
-        EOF
-        package.json 
+        EOF        
     - run: npm init --scope @${{ github.repository_owner }} -y
     - run: npm version 1.0.0-g${{ github.sha }}
     - run: echo '//npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}' > .npmrc
