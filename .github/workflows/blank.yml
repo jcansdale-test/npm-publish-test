@@ -1,0 +1,11 @@
+on:
+  push:
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - run: npm init @{{ github.repository }} -y
+      - run: npm version 1.0.0-g@{{ github.sha }}
+      - run: npm publish --registry=https://${{ secrets.GITHUB_TOKEN }}@npm.pkg.github.com
