@@ -8,5 +8,8 @@ jobs:
     steps:
       - run: npm init --scope @${{ github.repository_owner }} -y
       - run: npm version 1.0.0-g${{ github.sha }}
-      - run: npm publish --registry=https://${{ secrets.GITHUB_TOKEN }}@npm.pkg.github.com
+      - run: echo '//npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}' > .npmrc
+      - run: npm publish --registry=https://npm.pkg.github.com
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
