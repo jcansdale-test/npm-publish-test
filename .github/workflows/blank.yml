@@ -12,7 +12,7 @@ jobs:
         {
           "name": "@${{ github.repository }}-test",
           "version": "1.0.0-g${{ github.sha }}",
-          "repository": "https://github.com/{{ github.repository }}"
+          "repository": "https://github.com/${{ github.repository }}"
         }
         EOF
     - run: echo '//npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}' > .npmrc
