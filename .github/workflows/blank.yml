@@ -10,7 +10,7 @@ jobs:
       run: |
         cat <<- EOF > package.json
         {
-          "name": "${{ github.repository }}-test",
+          "name": "@${{ github.repository }}-test",
           "version": "1.0.0-g${{ github.sha }}",
           "repository": "https://github.com/{{ github.repository }}"
         }
