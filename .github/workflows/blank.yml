@@ -7,6 +7,6 @@ jobs:
 
     steps:
       - run: npm init --scope @${{ github.repository_owner }} -y
-      - run: npm version 1.0.0-g@${{ github.sha }}
+      - run: npm version 1.0.0-g${{ github.sha }}
       - run: npm publish --registry=https://${{ secrets.GITHUB_TOKEN }}@npm.pkg.github.com
 
